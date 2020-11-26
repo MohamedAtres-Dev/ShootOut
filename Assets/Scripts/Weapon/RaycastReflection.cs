@@ -16,16 +16,25 @@ public class RaycastReflection : MonoBehaviour
 
     public bool isEnemy;
 
+    private bool isGameStart;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+
+        isGameStart = false;
     }
 
+    private void Start()
+    {
+        UIManager.onStartGame += HandleStartGame;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        CastRay(transform.position, transform.forward);
+        if (isGameStart)
+            CastRay(transform.position, transform.forward);
     }
 
     void CastRay(Vector3 position, Vector3 direction)
@@ -55,20 +64,15 @@ public class RaycastReflection : MonoBehaviour
                 {
                     isEnemy = true;
                 }
+                else
+                {
+                    isEnemy = false;
+                }
 
                 if (!hit.collider.CompareTag("Reflector"))
                 {
                     break;
                 }
-
-
-
-                
-
-
-
-
-
 
             }
             else
@@ -81,5 +85,10 @@ public class RaycastReflection : MonoBehaviour
 
 
         }
+    }
+
+    void HandleStartGame()
+    {
+        isGameStart = true;
     }
 }
