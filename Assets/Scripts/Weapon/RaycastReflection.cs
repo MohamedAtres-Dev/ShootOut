@@ -14,9 +14,18 @@ public class RaycastReflection : MonoBehaviour
 
     [HideInInspector] public LineRenderer lineRenderer;
 
-    public bool isEnemy;
+    [HideInInspector] public bool isEnemy;
+    [HideInInspector] public bool isPlayer;
 
     private bool isGameStart;
+
+    public enum TargetType
+    {
+        ENEMY,
+        PLAYER
+    }
+
+    public TargetType chooseTarget;
 
     private void Awake()
     {
@@ -43,6 +52,7 @@ public class RaycastReflection : MonoBehaviour
 
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, position);
+        
         float remainingLength = maxLength;
 
         for (int i = 0; i < raysCount; i++)
@@ -60,15 +70,30 @@ public class RaycastReflection : MonoBehaviour
                 ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
                 //direction = hit.normal;
 
-                if (hit.collider.CompareTag("Enemy"))
+                switch (chooseTarget)
                 {
-                    isEnemy = true;
+                    case TargetType.ENEMY:
+                        if (hit.collider.CompareTag("Enemy"))
+                        {
+                            isEnemy = true;
+                        }
+                        else
+                        {
+                            isEnemy = false;
+                        }
+                        break;
+                    case TargetType.PLAYER:
+                        if (hit.collider.CompareTag("Player"))
+                        {
+                            isPlayer = true;
+                        }
+                        else
+                        {
+                            isPlayer = false;
+                        }
+                        break;
                 }
-                else
-                {
-                    isEnemy = false;
-                }
-
+ 
                 if (!hit.collider.CompareTag("Reflector"))
                 {
                     break;
@@ -78,7 +103,7 @@ public class RaycastReflection : MonoBehaviour
             else
             {
                 lineRenderer.positionCount += 1;
-                lineRenderer.SetPosition(lineRenderer.positionCount - 1, ray.origin + ray.direction * remainingLength); ;
+                lineRenderer.SetPosition(lineRenderer.positionCount - 1, ray.origin + ray.direction * remainingLength); 
 
             }
 

@@ -15,9 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button pauseBtn;
     [SerializeField] private Transform pausePanel;
     [Space]
-    [SerializeField] private Button reloadBtn;
-    [SerializeField] private Button homeBtn;
     [SerializeField] private Transform gameOverPanel;
+    [SerializeField] private Transform gameSuccessPanel;
 
     [Header("Animation")]
     [SerializeField] private Ease startPanelEase;
@@ -34,6 +33,10 @@ public class UIManager : MonoBehaviour
     {
         startBtn.onClick.AddListener(StartGame);
         pauseBtn.onClick.AddListener(HandleGamePause);
+
+        //Subscribe to Events
+        PlayerHealth.onGameOver += HandleGameOver;
+        PlayerShoot.onGameSuccess += HandleGameSuccess;
     }
 
 
@@ -51,7 +54,16 @@ public class UIManager : MonoBehaviour
 
     void HandleGameOver()
     {
+        //onGamePause();
+        gameOverPanel.gameObject.SetActive(true);
 
+        Time.timeScale = 0;
+
+        gameOverPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
+        {
+
+
+        });
     }
 
     void HandleGamePause()
@@ -66,5 +78,79 @@ public class UIManager : MonoBehaviour
             
            
         });
+    }
+
+    void HandleGameSuccess()
+    {
+        //onGamePause();
+        gameSuccessPanel.gameObject.SetActive(true);
+
+        Time.timeScale = 0;
+
+        gameSuccessPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
+        {
+
+
+        });
+    }
+
+    public void ContinueButton()
+    {
+        pausePanel.DOLocalMoveY(2500f, 1f, false).SetEase(startPanelEase).OnComplete(() =>
+        {
+            pausePanel.gameObject.SetActive(false);
+            Time.timeScale = 1;
+        });
+
+
+
+    }
+
+    public void ReloadButton()
+    {
+        gameOverPanel.DOLocalMoveY(2500f, 1f, false).SetEase(startPanelEase).OnComplete(() =>
+        {
+            gameOverPanel.gameObject.SetActive(false);
+            Time.timeScale = 1;
+            //TODO : make a game reload effect
+        });
+    }
+
+    public void HomeButton()
+    {
+        if (gameOverPanel)
+        {
+            gameOverPanel.DOLocalMoveY(2500f, 1f, false).SetEase(startPanelEase).OnComplete(() =>
+            {
+                gameOverPanel.gameObject.SetActive(false);
+                Time.timeScale = 1;
+                //TODO : make a game reload effect
+                startPanel.gameObject.SetActive(true);
+                startPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
+                {
+
+
+                });
+
+            });
+        }
+
+        if (pausePanel)
+        {
+            pausePanel.DOLocalMoveY(2500f, 1f, false).SetEase(startPanelEase).OnComplete(() =>
+            {
+                pausePanel.gameObject.SetActive(false);
+                Time.timeScale = 1;
+                //TODO : make a game reload effect
+                startPanel.gameObject.SetActive(true);
+                startPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
+                {
+
+
+                });
+
+            });
+        }
+
     }
 }
