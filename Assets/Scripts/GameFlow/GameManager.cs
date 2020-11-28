@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class GameManager : Singlton<GameManager>
 {
-    public int numOfEnemies = 3;
+    public GameObject victoryFx;
+    public Transform victoryPos;
+    public AudioClip victorySFX;
+
+    public int numOfEnemies = 1;
 
     public bool isGameStart;
     // Start is called before the first frame update
     void Start()
     {
         UIManager.onStartGame += HandleGameStart;
+        PlayerShoot.onGameSuccess += HandleGameSuccess;
+        EnemyShoot.onEnemyFire += HandleGameOver;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void HandleGameSuccess()
     {
-        
+        AudioManager.Instance.PlaySound(victorySFX);
+
+        Instantiate(victoryFx, victoryPos.position, Quaternion.identity);
     }
 
     void HandleGameStart()
     {
         isGameStart = true;
+    }
+
+    void HandleGameOver()
+    {
+        isGameStart = false;
     }
 }

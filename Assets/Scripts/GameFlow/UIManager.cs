@@ -57,12 +57,11 @@ public class UIManager : MonoBehaviour
         //onGamePause();
         gameOverPanel.gameObject.SetActive(true);
 
-        Time.timeScale = 0;
+        
 
         gameOverPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
         {
-
-
+            Time.timeScale = 0;
         });
     }
 
@@ -85,12 +84,10 @@ public class UIManager : MonoBehaviour
         //onGamePause();
         gameSuccessPanel.gameObject.SetActive(true);
 
-        Time.timeScale = 0;
-
+        
         gameSuccessPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
         {
-
-
+            Time.timeScale = 0;
         });
     }
 
@@ -104,16 +101,6 @@ public class UIManager : MonoBehaviour
 
 
 
-    }
-
-    public void ReloadButton()
-    {
-        gameOverPanel.DOLocalMoveY(2500f, 1f, false).SetEase(startPanelEase).OnComplete(() =>
-        {
-            gameOverPanel.gameObject.SetActive(false);
-            Time.timeScale = 1;
-            //TODO : make a game reload effect
-        });
     }
 
     public void HomeButton()

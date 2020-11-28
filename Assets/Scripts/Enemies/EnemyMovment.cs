@@ -11,11 +11,11 @@ public class EnemyMovment : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (GameManager.Instance.isGameStart)
         {
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,  - PlayerInput.rotationY + 180f, transform.localEulerAngles.z);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,  - PlayerMovement.rotationY * Time.smoothDeltaTime + 180f, transform.localEulerAngles.z);
         }
     }
 }

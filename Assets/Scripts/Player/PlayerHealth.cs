@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
 
-
+    public GameObject deathFx;
+    
     /// <summary>
     /// Event for game Success 
     /// </summary>
@@ -20,6 +19,9 @@ public class PlayerHealth : MonoBehaviour
     void HandlePlayerHealth()
     {
         Debug.Log("Game Lose");
+        gameObject.SetActive(false);
         onGameOver?.Invoke();
+
+        Instantiate(deathFx, transform.position, Quaternion.identity);
     }
 }

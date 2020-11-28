@@ -1,10 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
     private RaycastReflection reflect;
+
+    private bool isTapped;
+
+    public AudioClip shootSFX;
+    
     /// <summary>
     /// Event for game Success 
     /// </summary>
@@ -16,11 +19,15 @@ public class EnemyShoot : MonoBehaviour
         reflect = GetComponent<RaycastReflection>();
     }
 
+    private void Start()
+    {
+        SwipeManager.OnSingleTap += HandleSingleTap;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isTapped)
         {
             if(reflect.hit.collider != null)
             {
@@ -30,11 +37,18 @@ public class EnemyShoot : MonoBehaviour
                     Debug.Log("Player has been Shooted");
 
                     onEnemyFire?.Invoke();
+                    AudioManager.Instance.PlaySound(shootSFX);
+
                     //TODO: make muzzle effect ans sound
                 }
             }
- 
-            
+
+            isTapped = false;
         }
+    }
+
+    void HandleSingleTap()
+    {
+        isTapped = true;
     }
 }

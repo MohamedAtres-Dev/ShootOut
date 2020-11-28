@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class RaycastReflection : MonoBehaviour
@@ -9,7 +7,7 @@ public class RaycastReflection : MonoBehaviour
     [SerializeField] private float maxLength;
 
     [HideInInspector] public RaycastHit hit;
-    public List<RaycastHit> hits = new List<RaycastHit>();
+    
     private Ray ray;
 
     [HideInInspector] public LineRenderer lineRenderer;
@@ -60,7 +58,7 @@ public class RaycastReflection : MonoBehaviour
             if (Physics.Raycast(ray.origin, ray.direction, out hit, remainingLength))
             {
 
-                hits.Add(hit);
+                
                 //Debug.DrawLine(position, hit.point, Color.red);
                 lineRenderer.positionCount += 1;
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, hit.point);
