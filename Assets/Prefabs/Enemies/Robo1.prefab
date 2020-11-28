@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 1147061870246133255}
   - component: {fileID: 1060200763051405513}
   - component: {fileID: 532315616}
-  - component: {fileID: 532315617}
   - component: {fileID: 532315618}
   m_Layer: 0
   m_Name: Robo1
@@ -102,18 +101,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &532315617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144067943521875057}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 154395e136516554184415802cfa1cee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &532315618
 MonoBehaviour:
   m_ObjectHideFlags: 0

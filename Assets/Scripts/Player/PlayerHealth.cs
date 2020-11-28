@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     void HandlePlayerHealth()
     {
         Debug.Log("Game Lose");
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         onGameOver?.Invoke();
 
         Instantiate(deathFx, transform.position, Quaternion.identity);

@@ -7,7 +7,7 @@ public class EnemyMovment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlayerHealth.onGameOver += HandleGameOver;
     }
 
     // Update is called once per frame
@@ -17,5 +17,10 @@ public class EnemyMovment : MonoBehaviour
         {
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,  - PlayerMovement.rotationY * Time.smoothDeltaTime + 180f, transform.localEulerAngles.z);
         }
+    }
+
+    void HandleGameOver()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //rotationY += Input.GetAxis("Horizontal") * senstivityY;
         //rotationY = Mathf.Clamp(rotationY, minRotation, maxRotation);
-        rotationY = SwipeManager.swipeDirectionX;
+        rotationY = SwipeManager.swipeDirectionX * 4;
 
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rotationY * Time.smoothDeltaTime , transform.localEulerAngles.z);
     }

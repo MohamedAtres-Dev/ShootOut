@@ -13,6 +13,8 @@ public class PlayerShoot : MonoBehaviour
 
     public GameObject enemyDieFX;
 
+    private int enemyCount;
+
     /// <summary>
     /// Event for game Success 
     /// </summary>
@@ -32,6 +34,10 @@ public class PlayerShoot : MonoBehaviour
     private void Start()
     {
         SwipeManager.OnSingleTap += HandleSingleTap;
+        UIManager.onLoadNextLevel += LoadNextLevel;
+
+        enemyCount = LevelManager.Instance.numOfEnemies;
+        Debug.Log("Enemy count" + enemyCount);
     }
 
    
@@ -60,9 +66,9 @@ public class PlayerShoot : MonoBehaviour
 
                     AudioManager.Instance.PlaySound(shootSFX);
 
-                    GameManager.Instance.numOfEnemies--;
+                    enemyCount--;
 
-                    if (GameManager.Instance.numOfEnemies == 0)
+                    if (enemyCount == 0)
                     {
                         reflect.lineRenderer.enabled = false;
                         onGameSuccess?.Invoke();
@@ -89,5 +95,10 @@ public class PlayerShoot : MonoBehaviour
         AudioManager.Instance.PlaySound(enemyDieSFX);
 
         Instantiate(enemyDieFX, enemy.transform.position, Quaternion.identity);
+    }
+
+    void LoadNextLevel()
+    {
+        enemyCount = LevelManager.Instance.numOfEnemies;
     }
 }

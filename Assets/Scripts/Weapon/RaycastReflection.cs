@@ -25,6 +25,10 @@ public class RaycastReflection : MonoBehaviour
 
     public TargetType chooseTarget;
 
+    private void OnEnable()
+    {
+        isGameStart = true;
+    }
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -35,6 +39,7 @@ public class RaycastReflection : MonoBehaviour
     private void Start()
     {
         UIManager.onStartGame += HandleStartGame;
+        UIManager.onLoadNextLevel += HandleLoadLevel;
     }
 
     // Update is called once per frame
@@ -113,5 +118,11 @@ public class RaycastReflection : MonoBehaviour
     void HandleStartGame()
     {
         isGameStart = true;
+        lineRenderer.enabled = true;
+    }
+
+    void HandleLoadLevel()
+    {
+        lineRenderer.enabled = true;
     }
 }

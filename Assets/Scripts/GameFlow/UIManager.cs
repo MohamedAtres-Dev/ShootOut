@@ -26,6 +26,9 @@ public class UIManager : MonoBehaviour
     #region GameEvents
     public static event Action onStartGame;
     public static event Action onGamePause;
+
+    public delegate void LoadNextLevel();
+    public static event LoadNextLevel onLoadNextLevel;
     #endregion
 
     // Start is called before the first frame update
@@ -85,9 +88,12 @@ public class UIManager : MonoBehaviour
         gameSuccessPanel.gameObject.SetActive(true);
 
         
-        gameSuccessPanel.DOLocalMoveY(0f, 1f, false).SetEase(pausePanelEase).OnComplete(() =>
+        gameSuccessPanel.DOShakeScale(2f , 0.4f , 2 , 30f , true ).SetEase(pausePanelEase).OnComplete(() =>
         {
-            Time.timeScale = 0;
+            Time.timeScale = 1;
+            gameSuccessPanel.gameObject.SetActive(false);
+
+            onLoadNextLevel?.Invoke();
         });
     }
 

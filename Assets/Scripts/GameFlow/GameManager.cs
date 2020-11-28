@@ -22,6 +22,7 @@ public class GameManager : Singlton<GameManager>
 
     void HandleGameSuccess()
     {
+
         AudioManager.Instance.PlaySound(victorySFX);
 
         Instantiate(victoryFx, victoryPos.position, Quaternion.identity);
